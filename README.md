@@ -20,7 +20,8 @@ Two pairwise contrast are tested against the control: overexpression vs. control
 1. README.md (this file)
 2. de_analysis_script.R (fully-annotated DESeq2 analysis script)
 3. data
-4. 
+4. output
+5. results
 
 ## Workflow summary:
 
