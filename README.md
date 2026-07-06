@@ -16,50 +16,58 @@ and functional (GO/KEGG) enrichment analysis.
 
 Two pairwise contrast are tested against the control: overexpression vs. control and knockdown vs. control.
 
-# Set-up
-1. Create new project in RStudio with 
+## Repository structure
+1. README.md (this file)
+2. de_analysis_script.R (fully-annotated DESeq2 analysis script)
+3. data
+4. 
 
-CRAN packages:
+## Workflow summary:
 
-    install.packages("BiocManager")
-    install.packages("tidyverse")
-    install.packages("RColorBrewer")
-    install.packages("pheatmap")
-    install.packages("ggrepel")
-    install.packages("cowplot")
+The `de_script.R` script is organized into the following sections:
+ 
+1. **Package installation & setup** — install/load all required CRAN and
+   Bioconductor packages; record session info for reproducibility.
+2. **Project setup** — recommended RStudio project structure (`data/`, `meta/`, `results/`).
+3. **Data import** — import Salmon transcript-level quantifications with
+   `tximport`, summarized to gene level using the GRCh38 (Ensembl v94)
+   tx2gene mapping table.
+4. **Exploratory QC on raw counts** — inspect count distribution and the
+   mean-variance relationship to confirm over-dispersion (justifying
+   DESeq2's negative binomial model).
+5. **Count normalization** — build the `DESeqDataSet`, estimate size
+   factors, and generate normalized counts and a variance-stabilized
+   (rlog) matrix for visualization.
+6. **Sample-level QC** — Principal Component Analysis (PCA) and
+   hierarchical clustering (sample correlation heatmap) to check for
+   outliers, batch effects, and expected grouping by condition.
+7. **Differential expression testing** — run `DESeq()` (Wald test) for two
+   pairwise contrasts (overexpression vs. control, knockdown vs. control);
+   inspect result tables, apply `apeglm` log2 fold-change shrinkage, and
+   generate MA plots.
+8. **Significant gene extraction** — filter each result table to genes
+   passing the adjusted p-value (FDR) cutoff (`padj < 0.05`).
+9. **Result visualization** — single-gene expression plot (MOV10), heatmap
+   of all significant genes, and volcano plots (with top-10 gene labels).
+10. **Alternate hypothesis testing** — Likelihood Ratio Test (LRT) as a
+    complementary approach to the Wald test, useful for detecting genes
+    affected by the experimental design across any group.
+11. **Expression pattern clustering** — group significant LRT genes into
+    clusters of shared expression trajectories using `DEGreport::degPatterns()`.
+12. **Genomic annotation** — retrieve gene symbol/Entrez ID annotations from
+    `AnnotationHub`/`ensembldb` and resolve duplicate/missing mappings.
+13. **Functional analysis (ORA)** — GO Biological Process over-representation
+    analysis with `clusterProfiler::enrichGO()`; visualized via dot plot,
+    enrichment map, and category netplots.
+14. **Gene Set Enrichment Analysis (GSEA)** — rank-based KEGG pathway
+    enrichment with `gseKEGG()`, visualized with pathway diagrams via `pathview`.
 
-Bioconductor packages:
-
-    library(BiocManager)
-    install("DESeq2")
-    install("clusterProfiler")
-    install("DOSE")
-    install("org.Hs.eg.db")
-    install("pathview")
-    install("DEGreport")
-    install("tximport")
-    install("AnnotationHub")
-    install("ensembldb")
-    install("apeglm")
-
-Load packages
-
-    library(DESeq2)
-    library(tidyverse)
-    library(RColorBrewer)
-    library(pheatmap)
-    library(ggrepel)
-    library(cowplot)
-    library(clusterProfiler)
-    library(DEGreport)
-    library(org.Hs.eg.db)
-    library(DOSE)
-    library(pathview)
-    library(tximport)
-    library(AnnotationHub)
-    library(ensembldb)
-    library(apeglm)
-
-
-
-
+## How to Run
+ 
+1. Source "de_analysis_script.R" into R or RStudio.
+2. Create a new project and `data/`, `meta/`, and `results/` subfolders.
+3. Place your Salmon output folders (one per sample, each containing
+   `quant.sf`) and the `tx2gene_grch38_ens94.txt` annotation file (check data) inside `data/`.
+4. Open `de_script.R` and run it.
+5. Review generated plots in RStudio and check `results/`
+   for exported enrichment tables (`.csv`).
