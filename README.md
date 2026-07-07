@@ -16,12 +16,13 @@ and functional (GO/KEGG) enrichment analysis.
 
 Two pairwise contrast are tested against the control: overexpression vs. control and knockdown vs. control.
 
-## Repository structure
+## Repository files and folders
 1. README.md (this file)
-2. de_analysis_script.R (fully-annotated DESeq2 analysis script)
-3. data
-4. output
-5. results
+2. DE_analysis_script.R (fully-annotated DESeq2 analysis script)
+3. data (source for downloading Salmon pseudocounts and Annotation file data)
+4. output (figures)
+5. results (results tables)
+6. kegg_pathways 
 
 ## Workflow summary:
 
@@ -65,10 +66,9 @@ The `de_script.R` script is organized into the following sections:
 
 ## How to Run
  
-1. Source "de_analysis_script.R" into R or RStudio.
-2. Create a new project and `data/`, `meta/`, and `results/` subfolders.
+1. Source "DE_analysis_script.R" into R or RStudio.
+2. Create a new project and `meta/`, and `results/` subfolders.
 3. Place your Salmon output folders (one per sample, each containing
-   `quant.sf`) and the `tx2gene_grch38_ens94.txt` annotation file (check data) inside `data/`.
-4. Open `de_script.R` and run it.
-5. Review generated plots in RStudio and check `results/`
-   for exported enrichment tables (`.csv`).
+   `quant.sf`) and the `tx2gene_grch38_ens94.txt` annotation file inside project directory.
+4. Source `DE_analysis_script.R` and run it.
+5. Export generated plots to `outputs/` and results tables to `results/`.
