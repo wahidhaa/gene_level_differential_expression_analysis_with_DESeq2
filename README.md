@@ -1,4 +1,4 @@
-# gene_level_differential_expression_analysis_with_DESeq2
+# differential_expression_analysis_using_DESeq2
 
 A self-directed bioinformatics project implementing the full DESeq2 differential
 gene expression (DGE) workflow, adapted from the Harvard Chan Bioinformatics Core (HBC) "[Introduction to DGE](https://hbctraining.github.io/Intro-to-DGE/schedule/links-to-lessons.html)" self-learning workshop.
