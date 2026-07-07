@@ -1,7 +1,7 @@
 # differential_expression_analysis_using_DESeq2
 
 A self-directed bioinformatics project implementing the full DESeq2 differential
-gene expression (DGE) workflow, adapted from the Harvard Chan Bioinformatics Core (HBC) "[Introduction to DGE](https://hbctraining.github.io/Intro-to-DGE/schedule/links-to-lessons.html)" self-learning workshop.
+gene expression (DGE) workflow, adapted from the Harvard Chan Bioinformatics Core (HBC) "[Introduction to DGE](https://hbctraining.github.io/Intro-to-DGE/schedule/links-to-lessons.html)" self-learning workshop materials.
 
 This project uses the Mov10 RNA-seq dataset (control vs. MOV10 knockdown vs.
 MOV10 overexpression) to demonstrate an end-to-end bulk RNA-seq DE analysis in R:
@@ -17,6 +17,7 @@ and functional (GO/KEGG) enrichment analysis.
 Two pairwise contrast are tested against the control: overexpression vs. control and knockdown vs. control.
 
 ## Repository files and folders
+
 1. README.md (this file)
 2. DE_analysis_script.R (fully-annotated DESeq2 analysis script)
 4. output (figures)
@@ -64,10 +65,9 @@ The `DE_analysis_script.R` script is organized into the following sections:
     enrichment with `gseKEGG()`, visualized with pathway diagrams via `pathview`.
 
 ## How to Run
- 
-1. Source "DE_analysis_script.R" into R or RStudio.
-2. Create a new project and `meta/`, and `results/` subfolders.
-3. Download the Salmon pseudocounts (one per sample, each containing
+
+1. Create a new project and `meta/`, and `results/` subfolders.
+2. Download the Salmon pseudocounts (one per sample, each containing
    `quant.sf`) and the `tx2gene_grch38_ens94.txt` annotation file inside project directory from [HBC training](https://hbctraining.github.io/Intro-to-DGE/lessons/01b_DGE_setup_and_overview.html).
-4. Source `DE_analysis_script.R` and run it.
-5. Export generated plots to `outputs/` and results tables to `results/`.
+3. Source `DE_analysis_script.R` and run it.
+4. Export generated plots to `outputs/` and results tables to `results/`.
