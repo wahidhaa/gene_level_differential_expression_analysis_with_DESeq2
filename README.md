@@ -25,7 +25,7 @@ Two pairwise contrast are tested against the control: overexpression vs. control
 
 ## Workflow summary:
 
-The `de_script.R` script is organized into the following sections:
+The `DE_analysis_script.R` script is organized into the following sections:
  
 1. **Package installation & setup** — install/load all required CRAN and
    Bioconductor packages; record session info for reproducibility.
