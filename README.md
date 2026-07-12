@@ -64,8 +64,31 @@ The `DE_analysis_script.R` script is organized into the following sections:
 
 ## How to Run
 
-1. Create a new project and `meta/`, and `results/` subfolders.
-2. Download the Salmon pseudocounts (one per sample, each containing
+1. Install the following packages in R or RStudio:
+   
+       ## ---- CRAN packages ----
+       install.packages("BiocManager")   # manages Bioconductor package installs
+       install.packages("tidyverse")     # data wrangling + ggplot2
+       install.packages("RColorBrewer")  # color palettes for plots
+       install.packages("pheatmap")      # heatmap plotting
+       install.packages("ggrepel")       # non-overlapping text labels on plots
+       install.packages("cowplot")       # ggplot2 theme/plot arrangement helpers
+       
+       ## ---- Bioconductor packages ----
+       library(BiocManager)
+       install("DESeq2")           # core DE testing framework
+       install("clusterProfiler")  # GO/KEGG over-representation & GSEA
+       install("DOSE")              # disease ontology enrichment (dependency for clusterProfiler)
+       install("org.Hs.eg.db")     # human genome-wide annotation database
+       install("pathview")         # KEGG pathway visualization
+       install("DEGreport")        # gene clustering/reporting utilities
+       install("tximport")         # import transcript-level quantifications (Salmon)
+       install("AnnotationHub")    # access to curated genomic annotation resources
+       install("ensembldb")        # Ensembl-based annotation database backend
+       install("apeglm")           # adaptive shrinkage estimator for log2FC
+   
+4. Create a new project and `meta/`, and `results/` subfolders.
+5. Download the Salmon pseudocounts (one per sample, each containing
    `quant.sf`) `data/` file and the `tx2gene_grch38_ens94.txt` annotation file inside project directory from [HBC training](https://hbctraining.github.io/Intro-to-DGE/lessons/01b_DGE_setup_and_overview.html).
-3. Source `DE_analysis_script.R` and run it.
-4. Export generated plots to `outputs/` and results tables to `results/`.
+6. Source `DE_analysis_script.R` and run it.
+7. Export generated plots to `outputs/` and results tables to `results/`.
