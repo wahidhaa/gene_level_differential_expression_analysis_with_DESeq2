@@ -28,46 +28,44 @@ Two pairwise contrast are tested against the control: overexpression vs. control
 
 The `DE_analysis_script.R` script is organized into the following sections:
  
-1. **Package installation & setup** — install/load all required CRAN and
-   Bioconductor packages; record session info for reproducibility.
-2. **Project setup** — recommended RStudio project structure (`data/`, `meta/`, `results/`).
-3. **Data import** — import Salmon transcript-level quantifications with
+1. **Project setup** — recommended RStudio project structure (`data/`, `meta/`, `results/`).
+2. **Data import** — import Salmon transcript-level quantifications with
    `tximport`, summarized to gene level using the GRCh38 (Ensembl v94)
    tx2gene mapping table.
-4. **Exploratory QC on raw counts** — inspect count distribution and the
+3. **Exploratory QC on raw counts** — inspect count distribution and the
    mean-variance relationship to confirm over-dispersion (justifying
    DESeq2's negative binomial model).
-5. **Count normalization** — build the `DESeqDataSet`, estimate size
+4. **Count normalization** — build the `DESeqDataSet`, estimate size
    factors, and generate normalized counts and a variance-stabilized
    (rlog) matrix for visualization.
-6. **Sample-level QC** — Principal Component Analysis (PCA) and
+5. **Sample-level QC** — Principal Component Analysis (PCA) and
    hierarchical clustering (sample correlation heatmap) to check for
    outliers, batch effects, and expected grouping by condition.
-7. **Differential expression testing** — run `DESeq()` (Wald test) for two
+6. **Differential expression testing** — run `DESeq()` (Wald test) for two
    pairwise contrasts (overexpression vs. control, knockdown vs. control);
    inspect result tables, apply `apeglm` log2 fold-change shrinkage, and
    generate MA plots.
-8. **Significant gene extraction** — filter each result table to genes
+7. **Significant gene extraction** — filter each result table to genes
    passing the adjusted p-value (FDR) cutoff (`padj < 0.05`).
-9. **Result visualization** — single-gene expression plot (MOV10), heatmap
+8. **Result visualization** — single-gene expression plot (MOV10), heatmap
    of all significant genes, and volcano plots (with top-10 gene labels).
-10. **Alternate hypothesis testing** — Likelihood Ratio Test (LRT) as a
+9. **Alternate hypothesis testing** — Likelihood Ratio Test (LRT) as a
     complementary approach to the Wald test, useful for detecting genes
     affected by the experimental design across any group.
-11. **Expression pattern clustering** — group significant LRT genes into
+10. **Expression pattern clustering** — group significant LRT genes into
     clusters of shared expression trajectories using `DEGreport::degPatterns()`.
-12. **Genomic annotation** — retrieve gene symbol/Entrez ID annotations from
+11. **Genomic annotation** — retrieve gene symbol/Entrez ID annotations from
     `AnnotationHub`/`ensembldb` and resolve duplicate/missing mappings.
-13. **Functional analysis (ORA)** — GO Biological Process over-representation
+12. **Functional analysis (ORA)** — GO Biological Process over-representation
     analysis with `clusterProfiler::enrichGO()`; visualized via dot plot,
     enrichment map, and category netplots.
-14. **Gene Set Enrichment Analysis (GSEA)** — rank-based KEGG pathway
+13. **Gene Set Enrichment Analysis (GSEA)** — rank-based KEGG pathway
     enrichment with `gseKEGG()`, visualized with pathway diagrams via `pathview`.
 
 ## How to Run
 
 1. Create a new project and `meta/`, and `results/` subfolders.
 2. Download the Salmon pseudocounts (one per sample, each containing
-   `quant.sf`) and the `tx2gene_grch38_ens94.txt` annotation file inside project directory from [HBC training](https://hbctraining.github.io/Intro-to-DGE/lessons/01b_DGE_setup_and_overview.html).
+   `quant.sf`) `data/` file and the `tx2gene_grch38_ens94.txt` annotation file inside project directory from [HBC training](https://hbctraining.github.io/Intro-to-DGE/lessons/01b_DGE_setup_and_overview.html).
 3. Source `DE_analysis_script.R` and run it.
 4. Export generated plots to `outputs/` and results tables to `results/`.
