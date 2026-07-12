@@ -643,34 +643,41 @@ gseaplot(gseaKEGG, geneSetID = 'hsa03008')
 ## detach dplyr before running pathview to avoid conflicts
 detach("package:dplyr", unload = TRUE)
 
+## Create a destination folder for pathway diagrams
+dir.create("outputs/kegg_pathways", recursive = TRUE)
+
+## Save the original working directory so we can return to it afterward
+original_wd <- getwd()
+
 ## Render a single KEGG pathway diagram colored by fold change
+setwd("outputs/kegg_pathways")
 pathview(gene.data = foldchanges,
          pathway.id = "hsa03008",
          species = "hsa",
          limit = list(gene = 2,  # caps the color scale at +/-2 log2FC
                       cpd = 1))
+setwd(original_wd)
 ## pathview() writes its .png/.xml/.png files straight to the
 ## current working directory and does not take an output-path argument,
-## so set kegg.dir/working dir or move the generated files into outputs/
-## afterward, e.g.: file.copy(list.files(pattern = "hsa03008.*\\.png$"),
-## "outputs/", overwrite = TRUE)
-file.copy(list.files(pattern = "^hsa03008.*\\.png$"), "outputs/", overwrite = TRUE)
+## so set the working directory to the target folder before each call
 
 ## Batch-render pathway diagrams for every significant KEGG pathway from GSEA
 ## while skipping large pathways or non-standard image layout.
 get_kegg_plots <- function(x) {
+  pid <- gseaKEGG_results$ID[x]
   tryCatch({
+    setwd("outputs/kegg_pathways")
     pathview(gene.data = foldchanges,
              pathway.id = gseaKEGG_results$ID[x],
              species = "hsa",
              limit = list(gene = 2, cpd = 1))
+    setwd(original_wd)
   }, error = function(e) {
+    setwd(original_wd)
     message("Skipping pathway ", gseaKEGG_results$ID[x], ": ", conditionMessage(e))
     NULL
   })
 }
 
 purrr::map(1:length(gseaKEGG_results$ID), get_kegg_plots)
-
-file.copy(list.files(pattern = "\\.pathview\\.png$"), "kegg_pathways/", overwrite = TRUE)
 # ============================== END OF SCRIPT ==============================
