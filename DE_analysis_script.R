@@ -11,27 +11,6 @@
 
 # ============================= 1. PACKAGES ==========================
 
-## ---- Install CRAN packages ----
-install.packages("BiocManager")   # manages Bioconductor package installs
-install.packages("tidyverse")     # data wrangling + ggplot2
-install.packages("RColorBrewer")  # color palettes for plots
-install.packages("pheatmap")      # heatmap plotting
-install.packages("ggrepel")       # non-overlapping text labels on plots
-install.packages("cowplot")       # ggplot2 theme/plot arrangement helpers
-
-## ---- Install Bioconductor packages ----
-library(BiocManager)
-install("DESeq2")           # core DE testing framework
-install("clusterProfiler")  # GO/KEGG over-representation & GSEA
-install("DOSE")              # disease ontology enrichment (dependency for clusterProfiler)
-install("org.Hs.eg.db")     # human genome-wide annotation database
-install("pathview")         # KEGG pathway visualization
-install("DEGreport")        # gene clustering/reporting utilities
-install("tximport")         # import transcript-level quantifications (Salmon)
-install("AnnotationHub")    # access to curated genomic annotation resources
-install("ensembldb")        # Ensembl-based annotation database backend
-install("apeglm")           # adaptive shrinkage estimator for log2FC
-
 ## ---- Load packages ----
 library(DESeq2)
 library(tidyverse)
